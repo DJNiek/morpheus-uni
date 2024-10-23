@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="morpheus",
-    packages=find_packages(include=["morpheus"]),
+    packages=find_packages(include=["morpheus*"]),
     version="0.1.0",
     description="Morpheus library for delta G prediction",
     author="Elias Rusch",
