@@ -1,3 +1,6 @@
+#as far as i can see, this piece of code is to generate a large library of NHCs which can be used as possible catalysts. It would be unwise to calculate reaction energy as the reaction energy of the NHC is somewhat irrelevant to the 
+#effectiveness of the catalyst.
+
 from pathlib import Path
 from threading import Thread
 import numpy as np
