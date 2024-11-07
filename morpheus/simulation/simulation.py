@@ -18,5 +18,5 @@ class Simulation:
 
     def calculate_delta_h(self, obj: IDeltaG) -> float:
         instance = SimulationInstance(self.options, self.cache)
-        instance.result = obj.extract_delta_h(instance)
+        instance.result = obj.calculate_delta_h(instance)
         return instance.result
