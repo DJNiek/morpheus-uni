@@ -20,7 +20,7 @@ class ReactionProducts(IDeltaG):
         self.delta_h = None
 
     def __repr__(self) -> str:
-        return f'{str.join(" + ", [f"{product}" for product in self.products])}    ΔG = {EnergyValue(self.delta_g, EnergyUnit.Eh).to(EnergyUnit.kJMol) if self.delta_g else "?"}    ΔH = {EnergyValue(self.delta_h, EnergyUnit.Eh).to(EnergyUnit.kJMol) if self.delta_h else "?"}'
+        return f'{str.join(" + ", [f"{product}" for product in self.products])}    ΔG = {EnergyValue(self.delta_g, EnergyUnit.Eh).to(EnergyUnit.kJMol) if self.delta_g else "?"    ΔH = {EnergyValue(self.delta_h, EnergyUnit.Eh).to(EnergyUnit.kJMol) if self.delta_h else "?"}'
 
     def calculate_delta_g(
         self,
