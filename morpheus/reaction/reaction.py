@@ -56,7 +56,7 @@ class ReactionProducts(IDeltaG):
         substrate_delta_h = sum(
             list(
                 map(
-                    lambda substrate: simulation.calculate_delta_h(substrate),
+                    lambda substrate: simulation.extract_delta_h(substrate),
                     self.reactants,
                 )
             )
@@ -64,7 +64,7 @@ class ReactionProducts(IDeltaG):
         product_delta_g = sum(
             list(
                 map(
-                    lambda product: simulation.calculate_delta_h(product),
+                    lambda product: simulation.extract_delta_h(product),
                     self.products,
                 )
             )
