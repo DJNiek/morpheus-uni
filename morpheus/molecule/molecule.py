@@ -152,3 +152,22 @@ class Molecule(IDeltaG):
         instance.generate_inp_file(_rdc.MolToXYZBlock(self.__internal_mol))
 
         return instance.calculate_delta_g()
+
+    def calculate_delta_h(self, instance: SimulationInstance) -> float:
+        return instance.cache.read(self.canonical) or instance.cache.write(
+            self.canonical, self.calculate_delta_h_real(instance)
+        )
+
+    def calculate_delta_h_real(self, instance: SimulationInstance) -> float:
+        self.__prepare_molecule()
+
+        self.__embed_molecule()
+        if instance.options.conformer_search:
+            self.optimize_molecule(instance)
+        else:
+            self.__embed_molecule()
+            _rdca.MMFFOptimizeMolecule(self.__internal_mol)
+
+        instance.generate_inp_file(_rdc.MolToXYZBlock(self.__internal_mol))
+
+        return instance.calculate_delta_h()
