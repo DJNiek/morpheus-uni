@@ -57,8 +57,6 @@ class SimulationInstance:
                 if free_energy_line and enthalpy_line:
                     free_energy = float(re.search(r"(-?\d+\.\d+)", free_energy_line).group(0))
                     enthalpy = float(re.search(r"(-?\d+\.\d+)", enthalpy_line).group(0))
-    
-                print((free_energy, enthalpy))
 
                 return free_energy, enthalpy
 
