@@ -62,10 +62,10 @@ class SimulationInstance:
 
                 return free_energy, enthalpy
 
-                except (IOError, ValueError, AttributeError) as e:
-                    print(f"An error occurred: {e}")
+        except (IOError, ValueError, AttributeError) as e:
+            print(f"An error occurred: {e}")
 
-                return None
+        return None
 
     def calculate_delta_g(self) -> float | None:
         if not Path(f"{self.inp_path.parent}/param_gfn0-xtb.txt").exists():
