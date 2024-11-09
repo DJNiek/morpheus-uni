@@ -38,7 +38,7 @@ def print_logo():
 
 def print_information():
   print("-------------------------------------------------------------------------")
-  print("| Version 0.1.1.TEST                            Programmer: Elias Rusch |")
+  print("| Version 0.1.0.TEST                            Programmer: Elias Rusch |")
   print("-------------------------------------------------------------------------")
   print(f"| Using rdKit version {rdkit.__version__}                 Using xtb version 6.7.0 |")
   print("-------------------------------------------------------------------------")
