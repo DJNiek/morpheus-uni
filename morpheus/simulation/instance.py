@@ -48,10 +48,26 @@ class SimulationInstance:
         try:
             with open(self.out_path, "r") as outfile:
                 output = outfile.read().splitlines()
-                return float(
+                print(float(
                     re.search(
                         "(?<=TOTAL FREE ENERGY) +(-?\d+\.\d+)",
                         [x for x in output if x.__contains__("TOTAL FREE ENERGY")][0],
+                    ).groups()[0], 
+                    float(
+                    re.search(
+                        "(?<=TOTAL ENTHALPY) +(-?\d+\.\d+)",
+                        [x for x in output if x.__contains__("TOTAL ENTHALPY")][0],
+                    ).groups()[0])
+                return tuple(
+                    float(
+                    re.search(
+                        "(?<=TOTAL FREE ENERGY) +(-?\d+\.\d+)",
+                        [x for x in output if x.__contains__("TOTAL FREE ENERGY")][0],
+                    ).groups()[0], 
+                    float(
+                    re.search(
+                        "(?<=TOTAL ENTHALPY) +(-?\d+\.\d+)",
+                        [x for x in output if x.__contains__("TOTAL ENTHALPY")][0],
                     ).groups()[0]
                 )
         except:
