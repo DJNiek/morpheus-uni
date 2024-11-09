@@ -54,7 +54,8 @@ class SimulationInstance:
                 enthalpy_line = next((line for line in output if "TOTAL ENTHALPY" in line), None)
 
                 # Temporary to get the used temperature, assumed to be 300 K
-                temp_line = next((line for line in output if "electronic temp." in line), None)
+                temp_line = next((line for line in output if "electronic temp" in line), None)
+                print(temp_line)
 
                 # Extract values if lines were found
                 if free_energy_line and enthalpy_line:
