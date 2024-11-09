@@ -50,14 +50,22 @@ class SimulationInstance:
                 output = outfile.read().splitlines()
 
                 # Find lines containing TOTAL FREE ENERGY and TOTAL ENTHALPY
-                free_energy_line = free_energy_line = next((line for line in output if "TOTAL FREE ENERGY" in line), None)
+                free_energy_line = next((line for line in output if "TOTAL FREE ENERGY" in line), None)
                 enthalpy_line = next((line for line in output if "TOTAL ENTHALPY" in line), None)
+
+                # Temporary to get the used temperature, assumed to be 300 K
+                temp_line = next((line for line in output if "electronic temp." in line), None)
 
                 # Extract values if lines were found
                 if free_energy_line and enthalpy_line:
                     free_energy = float(re.search(r"(-?\d+\.\d+)", free_energy_line).group(0))
                     enthalpy = float(re.search(r"(-?\d+\.\d+)", enthalpy_line).group(0))
 
+                # Temporary to get temperature
+                if temp_line:
+                    temp = float(re.search(r"(-?\d+\.\d+)", temp_line).group(0))
+                    print(temp)
+                
                 return free_energy, enthalpy
 
         except (IOError, ValueError, AttributeError) as e:
