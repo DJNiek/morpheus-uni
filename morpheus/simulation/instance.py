@@ -48,30 +48,24 @@ class SimulationInstance:
         try:
             with open(self.out_path, "r") as outfile:
                 output = outfile.read().splitlines()
-                print(float(
-                    re.search(
-                        "(?<=TOTAL FREE ENERGY) +(-?\d+\.\d+)",
-                        [x for x in output if x.__contains__("TOTAL FREE ENERGY")][0],
-                    ).groups()[0], 
-                    float(
-                    re.search(
-                        "(?<=TOTAL ENTHALPY) +(-?\d+\.\d+)",
-                        [x for x in output if x.__contains__("TOTAL ENTHALPY")][0],
-                    ).groups()[0])
-                return (
-                    float(
-                    re.search(
-                        "(?<=TOTAL FREE ENERGY) +(-?\d+\.\d+)",
-                        [x for x in output if x.__contains__("TOTAL FREE ENERGY")][0],
-                    ).groups()[0], 
-                    float(
-                    re.search(
-                        "(?<=TOTAL ENTHALPY) +(-?\d+\.\d+)",
-                        [x for x in output if x.__contains__("TOTAL ENTHALPY")][0],
-                    ).groups()[0]
-                )
-        except:
-            return None
+
+                # Find lines containing TOTAL FREE ENERGY and TOTAL ENTHALPY
+                free_energy_line = free_energy_line = next((line for line in output if "TOTAL FREE ENERGY" in line), None)
+                enthalpy_line = next((line for line in output if "TOTAL ENTHALPY" in line), None)
+
+                # Extract values if lines were found
+                if free_energy_line and enthalpy_line:
+                    free_energy = float(re.search(r"(-?\d+\.\d+)", free_energy_line).group(0))
+                    enthalpy = float(re.search(r"(-?\d+\.\d+)", enthalpy_line).group(0))
+    
+                print((free_energy, enthalpy))
+
+                return free_energy, enthalpy
+
+                except (IOError, ValueError, AttributeError) as e:
+                    print(f"An error occurred: {e}")
+
+                return None
 
     def calculate_delta_g(self) -> float | None:
         if not Path(f"{self.inp_path.parent}/param_gfn0-xtb.txt").exists():
