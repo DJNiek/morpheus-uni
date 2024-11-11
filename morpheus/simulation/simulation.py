@@ -11,7 +11,7 @@ class Simulation:
         self.options = options
         self.cache = SimulationCache()
 
-    def calculate_delta_g(self, obj: IDeltaG) -> float:
+    def calculate_delta_g(self, obj: IDeltaG) -> tuple[float, float]:
         instance = SimulationInstance(self.options, self.cache)
-        instance.result = obj.calculate_delta_g(instance)
-        return instance.result
+        instance.result_g, instance.result_h = obj.calculate_delta_g(instance)
+        return instance.result_g, instance.result_h
