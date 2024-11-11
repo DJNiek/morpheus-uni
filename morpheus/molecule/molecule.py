@@ -20,6 +20,7 @@ class Molecule(IDeltaG):
     def __init__(self, smiles: Smiles = "") -> None:
         self.smiles = smiles
         self.delta_g = None
+        self.delta_h = None
 
     def from_molecule(self, molecule: _rdc.Mol):
         self.smiles = _rdc.MolToSmiles(_rdc.RemoveHs(molecule), kekuleSmiles=True)
