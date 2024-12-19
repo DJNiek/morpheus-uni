@@ -62,7 +62,7 @@ class SimulationInstance:
             subprocess.Popen(
                 [
                     "ln",
-                    "/root/xtb/xtb-dist/share/xtb/param_gfn0-xtb.txt",
+                    "$HOME/bsc-thesis/xtb/param_gfn0-xtb.txt",
                     f"{self.inp_path.parent}/param_gfn0-xtb.txt",
                 ],
                 stdout=subprocess.DEVNULL,
