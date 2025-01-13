@@ -17,20 +17,21 @@ class ReactionProducts(IDeltaG):
         self.reactants = reactants
         self.products = products
         self.delta_g = None
+        self.delta_h = None
 
     def __repr__(self) -> str:
-        return f'{str.join(" + ", [f"{product}" for product in self.products])}    ΔG = {EnergyValue(self.delta_g, EnergyUnit.Eh).to(EnergyUnit.kJMol) if self.delta_g else "?"}'
+        return f'{str.join(" + ", [f"{product}" for product in self.products])}    ΔG = {EnergyValue(self.delta_g, EnergyUnit.Eh).to(EnergyUnit.kJMol) if self.delta_g else "?"}    ΔH = {EnergyValue(self.delta_h, EnergyUnit.Eh).to(EnergyUnit.kJMol) if self.delta_h else "?"}'
 
     def calculate_delta_g(
         self,
         instance: SimulationInstance,
-    ) -> float:
+    ) -> tuple[float, float]:
         simulation = Simulation(instance.options)
 
         substrate_delta_g = sum(
             list(
                 map(
-                    lambda substrate: simulation.calculate_delta_g(substrate),
+                    lambda substrate: simulation.calculate_delta_g(substrate)[0],
                     self.reactants,
                 )
             )
@@ -38,13 +39,31 @@ class ReactionProducts(IDeltaG):
         product_delta_g = sum(
             list(
                 map(
-                    lambda product: simulation.calculate_delta_g(product),
+                    lambda product: simulation.calculate_delta_g(product)[0],
                     self.products,
                 )
             )
         )
         self.delta_g = product_delta_g - substrate_delta_g
-        return self.delta_g
+
+        substrate_delta_h = sum(
+            list(
+                map(
+                    lambda substrate: simulation.calculate_delta_g(substrate)[1],
+                    self.reactants,
+                )
+            )
+        )
+        product_delta_h = sum(
+            list(
+                map(
+                    lambda product: simulation.calculate_delta_g(product)[1],
+                    self.products,
+                )
+            )
+        )
+        self.delta_h = product_delta_h - substrate_delta_h
+        return self.delta_g, self.delta_h
 
 
 class ReactionTemplate:
